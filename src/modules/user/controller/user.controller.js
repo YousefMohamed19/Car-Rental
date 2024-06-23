@@ -28,7 +28,7 @@ export const signin = async (req, res) => {
 
   try {
     // Find user with provided email
-    const user = await db.collection('users').findOne({ email ,password});
+    const user = await db.collection('users').findOne({ email});
     if (!user) {
         throw Error ("user not found",{cause:404})
     }
@@ -37,7 +37,7 @@ export const signin = async (req, res) => {
     if (!passwordMatch) {
         throw Error ("user not found",{cause:404})
     }
-    res.status(200).json({ message: 'User signed in successfully', success: true });
+    res.status(200).json({ message: `Welcome ${user.name}`, success: true });
   } catch (err) {
     res.status(err.cause||500).json({message:err.message,success:false})
   }
